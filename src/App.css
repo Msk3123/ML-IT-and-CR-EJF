@@ -1,38 +1,227 @@
+/* File: src/App.css */
 .App {
-  text-align: center;
+    text-align: center;
+    position: relative;
+    overflow-x: hidden;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
+/* === Header === */
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background: linear-gradient(135deg, #001f3f 0%, #0a4e8c 60%, #1a6bb5 100%);
+    background-size: 200% 200%;
+    min-height: 15vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    animation: header-gradient 12s ease infinite;
+    position: relative;
+    z-index: 1;
 }
 
-.App-link {
-  color: #61dafb;
+.App-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15), transparent 50%);
+    animation: shine-move 8s linear infinite;
+    pointer-events: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.EJF-logo {
+    height: 100px;
+    width: 100px;
+    animation: logo-pulse 3s ease-in-out infinite;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+    transition: transform 0.4s ease;
 }
+
+.EJF-logo:hover {
+    transform: scale(1.15) rotate(5deg);
+    filter: drop-shadow(0 8px 20px rgba(255,255,255,0.5));
+}
+
+/* === Whyme Page === */
+.Whyme-page {
+    background-image: url("./assets/layered-waves-haikei.svg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    position: relative;
+    animation: wave-move 14s ease-in-out infinite, section-bob 10s ease-in-out infinite;
+    isolation: isolate;
+}
+
+.Whyme-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+            radial-gradient(circle at 35% 45%, rgba(255,255,255,0.25), transparent 60%),
+            radial-gradient(circle at 70% 60%, rgba(100,180,255,0.2), transparent 55%);
+    mix-blend-mode: overlay;
+    animation: overlay-pulse 10s ease-in-out infinite;
+    z-index: -1;
+}
+
+.Whyme-page::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background: linear-gradient(to top, rgba(13,42,66,0.3), transparent);
+    z-index: 0;
+    pointer-events: none;
+    
+}
+
+.question-page{
+     
+        background-image: url("./assets/layered-steps-haikei.svg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+        position: relative;
+        animation: wave-move 14s ease-in-out infinite, section-bob 10s ease-in-out infinite;
+        isolation: isolate;
+    
+}
+
+/* === Second Page === */
+.second-page {
+    background-image: url("./assets/Хвиля.svg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    position: relative;
+    animation: wave-shift 16s linear infinite, fade-in 1.5s ease-in;
+}
+
+.second-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 60% 40%, rgba(255,255,255,0.18), transparent 65%);
+    animation: glow-move 11s ease-in-out infinite;
+    z-index: -1;
+}
+
+/* === Keyframe Animations === */
+
+@keyframes header-gradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes shine-move {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(200%); }
+}
+
+@keyframes logo-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
+@keyframes wave-move {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    
+}
+@keyframes qestion-page {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+
+}
+
+/* === Smooth Fade-In for Pages === */
+.interactive-page,
+.Whyme-page,
+.second-page,
+.question-page {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: page-fade 1.5s ease-out forwards;
+}
+
+@keyframes page-fade {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* === Buttons Glow + Ripple === */
+.interactive-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.interactive-button::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(94,162,255,0.4);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: all .6s ease-out;
+}
+
+.interactive-button:active::after {
+    width: 180%;
+    height: 180%;
+    opacity: 0;
+    transition: 0s;
+}
+
+/* === Floating Animation for Logos or Headings === */
+.EJF-logo,
+.interactive-page-title {
+    animation: floaty 5s ease-in-out infinite;
+}
+
+@keyframes floaty {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* === Subtle Glow Pulse Around Header === */
+.App-header {
+    box-shadow: 0 0 20px rgba(10,78,140,0.3);
+    animation: header-pulse 6s ease-in-out infinite;
+}
+
+@keyframes header-pulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(10,78,140,0.3); }
+    50% { box-shadow: 0 0 40px rgba(26,107,181,0.6); }
+}
+
+/* === Floating Light Overlay === */
+.App::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 40%, rgba(255,255,255,0.08), transparent 60%),
+    radial-gradient(circle at 80% 60%, rgba(255,255,255,0.05), transparent 60%);
+    animation: light-shift 20s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes light-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+

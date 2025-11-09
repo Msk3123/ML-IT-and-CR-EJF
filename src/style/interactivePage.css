@@ -1,0 +1,123 @@
+.interactive-page{
+
+    background-color: #F0F4F8;
+    color: #111827;
+    border-radius: 50px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    width: 70%;          
+    margin: auto auto;    
+    max-width: 1000px;
+}
+
+.interactive-page h1{
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.interactive-page p{
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.interactive-button {
+    all: unset;
+    cursor: pointer;
+    min-width: 5.5rem;
+    padding: .85rem 1.4rem;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    background: linear-gradient(145deg, #202833, #1a1f26);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: .95rem;
+    position: relative;
+    transition: all .35s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+}
+
+.interactive-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(120deg, rgba(94,162,255,0.25), rgba(21,27,158,0.25));
+    opacity: 0;
+    transition: opacity .35s ease;
+}
+
+.interactive-button:hover {
+    background: linear-gradient(145deg, #1a1f26, #363DCAFF);
+    color: #eaf1ff;
+    box-shadow: 0 6px 16px rgba(54, 61, 202, 0.3);
+}
+
+.interactive-button:hover::before {
+    opacity: 1;
+}
+
+.interactive-button.active {
+    background: linear-gradient(145deg, #1a1f26, #363DCAFF);
+    color: #eaf1ff;
+    border-color: rgba(54,61,202,.8);
+    box-shadow: 0 0 0 1px rgba(54,61,202,.35), 0 6px 16px rgba(54,61,202,.35);
+}
+
+/* Keep the same look on hover when active */
+.interactive-button.active:hover {
+    background: linear-gradient(145deg, #1a1f26, #363DCAFF);
+    color: #eaf1ff;
+}
+
+
+
+.interactive-button:focus-visible {
+    outline: 2px solid #5ea2ff;
+    outline-offset: 3px;
+}
+
+
+
+.skill-card{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    width:15rem;
+}
+
+.skill-card-inner{
+    width:100%;
+    aspect-ratio:1/1;
+    background:#050505;
+    border:2px solid #6a4a0a;
+    border-radius:1rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 0 18px 2px rgba(255,178,62,0.35), 0 0 6px 1px rgba(255,178,62,0.5) inset;
+    transition:.35s;
+}
+.skill-icon{
+    max-width:65%;
+    max-height:65%;
+    object-fit:contain;
+    filter:drop-shadow(0 0 4px rgba(0,0,0,.6));
+}
+
+.skill-card-inner:hover{
+    border-color:#ffb23e;
+    box-shadow:0 0 24px 4px rgba(255,178,62,0.55), 0 0 10px 2px rgba(255,178,62,0.7) inset;
+    transform:translateY(-6px);
+}
+
+.skill-carousel{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:2.5rem;
+    padding:1.5rem 0;
+}
