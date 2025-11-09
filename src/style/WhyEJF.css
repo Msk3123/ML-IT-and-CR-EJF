@@ -28,13 +28,14 @@
 .role-btn.active {
     background: #0a4e8c;
     color: white;
-    box-shadow: 0 4px 16px rgba(10, 78, 140, 0.4);
+    box-shadow: 0 8px 20px rgba(10, 78, 140, 0.45);
 }
 
 .experience-content {
     margin-top: 16px;
     text-align: left;
     animation: fade-slide 0.4s ease;
+    will-change: transform, opacity;
 }
 
 
@@ -57,4 +58,24 @@
 .animated-section.is-visible {
     opacity: 1;
     transform: translateY(0); /* Повертаємо на місце */
+}
+
+/* Контейнер з плавним появленням дочірніх елементів */
+.question-toggle, .experience-content { will-change: transform, opacity; }
+
+/* Хвиля світла під заголовками */
+.profile-section h2 { position: relative; overflow: visible; }
+.profile-section h2::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(10,78,140,.4), transparent);
+  transform: scaleX(0); transform-origin: left; transition: transform .5s ease;
+}
+.profile-section h2:is(:hover, :focus)::after { transform: scaleX(1); }
+
+/* Легкий градієнтний фон для блоку запитань */
+.page-container { position: relative; }
+.page-container::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background: radial-gradient(60% 40% at 20% 10%, rgba(10,78,140,.06), transparent 60%),
+              radial-gradient(50% 40% at 80% 30%, rgba(10,78,140,.05), transparent 60%);
 }

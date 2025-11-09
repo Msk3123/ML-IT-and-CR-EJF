@@ -2,10 +2,10 @@
 
 :root {
   --bg:#0f1115;
-  --panel: #0b1733;
+  --panel:#1c2129; /* повернено */
   --glass:rgba(255,255,255,.06);
   --accent:#4f9cff;
-  --accent-grad:linear-gradient(15deg,#4f9cff,#8f6fff 60%,#ff9c6f);
+  --accent-grad:linear-gradient(135deg,#4f9cff,#8f6fff 60%,#ff9c6f);
   --text:#e6e9ef;
   --muted:#7a8696;
   --danger:#ff6f6f;
@@ -14,237 +14,52 @@
   font-family: system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
 }
 
-body {
-  background: radial-gradient(circle at 30% 30%,#16202b,#0d1014 70%);
-  color:var(--text);
-}
+body { background: radial-gradient(circle at 30% 30%,#16202b,#0d1014 70%); color:var(--text); }
 
-.skills-section {
-  max-width:1400px;
-  margin:0 auto;
-  padding:6rem 2rem 5rem;
-  display:flex;
-  flex-direction:column;
-  gap:3rem;
-}
+.skills-section { max-width:1400px; margin:0 auto; padding:6rem 2rem 5rem; display:flex; flex-direction:column; gap:3rem; }
 
-.skills-header {
-  align-self:center;
-  backdrop-filter: blur(16px);
-  background: #124983;
-  border:1px solid rgba(255,255,255,.1);
-  padding:2.8rem 4.5rem 2.2rem;
-  border-radius:2.75rem;
-  text-align:center;
-  position:relative;
-  box-shadow:0 8px 32px -8px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.08);
-}
+.skills-header { align-self:center; backdrop-filter: blur(16px); background:var(--glass); border:1px solid rgba(255,255,255,.1); padding:2.8rem 4.5rem 2.2rem; border-radius:2.75rem; text-align:center; position:relative; box-shadow:0 8px 32px -8px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.08); }
+.skills-header h2 { letter-spacing:.08em; font-weight:600; margin:0 0 1.4rem; font-size:1.4rem; color:var(--text); }
 
-.skills-header h2 {
-  letter-spacing:.08em;
-  font-weight:600;
-  margin:0 0 1.4rem;
-  font-size:1.4rem;
-  color:var(--text);
-}
+.category-switch { display:flex; gap:1.2rem; justify-content:center; }
+.category-switch button { all:unset; cursor:pointer; min-width:5.5rem; padding:.85rem 1.4rem; text-align:center; font-size:1rem; font-weight:600; color:var(--text); background:linear-gradient(#202833,#1a1f26); border:1px solid rgba(255,255,255,.12); border-radius:.95rem; position:relative; transition:.35s; }
+.category-switch button:before { content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; background:linear-gradient(140deg,rgba(255,255,255,.25),transparent 55%); opacity:.35; mix-blend-mode:overlay; }
+.category-switch button:hover { background:var(--accent-grad); color:#fff; transform:translateY(-4px); box-shadow:0 6px 24px -8px #4f9cff,0 0 0 1px rgba(255,255,255,.18); }
+.category-switch button.active { background:var(--accent-grad); box-shadow:0 0 0 1px rgba(255,255,255,.25),0 8px 28px -6px rgba(79,156,255,.55); color:#fff; }
 
-.category-switch {
-  display:flex;
-  gap:1.2rem;
-  justify-content:center;
-}
+/* Orbit wrapper */
+.skill-orbit-wrapper { background:var(--panel); border:1px solid #242b33; border-radius:7rem; padding:7rem clamp(2rem,4vw,4rem); position:relative; overflow:hidden; display:grid; grid-template-columns:minmax(240px,320px) 1fr; gap:3.5rem; }
 
-.category-switch button {
-  all:unset;
-  cursor:pointer;
-  min-width:5.5rem;
-  padding:.85rem 1.4rem;
-  text-align:center;
-  font-size:1rem;
-  font-weight:600;
-  color:var(--text);
-  background:linear-gradient(#202833,#1a1f26);
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:.95rem;
-  position:relative;
-  transition:.35s;
-}
+.skill-details { align-self:start; background:#12171d; border:1px solid rgba(255,255,255,.08); padding:1.5rem 1.6rem 1.8rem; border-radius:1.4rem; box-shadow:0 6px 28px -10px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.04); display:flex; flex-direction:column; gap:.9rem; opacity:.0; transform:translateX(-1.5rem); transition:.45s; }
+.skill-details.visible { opacity:1; transform:translateX(0); }
+.skill-details h3 { margin:0; font-size:1.15rem; font-weight:600; }
+.skill-details p { margin:0; font-size:.85rem; line-height:1.45; color:var(--muted); }
 
-.category-switch button:before {
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:inherit;
-  pointer-events:none;
-  background:linear-gradient(140deg,rgba(255,255,255,.25),transparent 55%);
-  opacity:.35;
-  mix-blend-mode:overlay;
-}
+/* Rotator (не обертаємо зараз щоб текст був статичним – прибрав анімацію) */
+.skill-rotator { position: relative; width: var(--radius); height: var(--radius); margin: auto; }
+/* Якщо потрібно повернути обертання – розкоментуй: */
+/* .skill-rotator { animation: subtle-rotate var(--orbit-speed) linear infinite; } */
+.skill-rotator:hover { animation-play-state: paused; }
 
-.category-switch button:hover {
-  background:var(--accent-grad);
-  color:#fff;
-  transform:translateY(-4px);
-  box-shadow:0 6px 24px -8px #4f9cff,0 0 0 1px rgba(255,255,255,.18);
-}
+@keyframes subtle-rotate { from { transform:rotate(0deg);} to { transform:rotate(360deg);} }
 
-.category-switch button.active {
-  background:var(--accent-grad);
-  box-shadow:0 0 0 1px rgba(255,255,255,.25),0 8px 28px -6px rgba(79,156,255,.55);
-  color:#fff;
-}
+.skill-core { --size:6.2rem; position:absolute; top:50%;left:50%; width:var(--size);height:var(--size); margin:calc(var(--size)/-2); background: radial-gradient(circle at 30% 30%,#4f9cff,#1e2530 70%); border:2px solid rgba(255,255,255,.15); border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:600; letter-spacing:.04em; color:#fff; box-shadow:0 0 0 6px rgba(79,156,255,.08),0 10px 30px -8px rgba(79,156,255,.55); backdrop-filter: blur(4px); }
+.skill-core:hover { box-shadow:0 0 0 8px rgba(79,156,255,.12), 0 14px 40px -8px rgba(79,156,255,.75); }
 
-/* Orbit */
+/* Lines */
+.skill-line { --angle:0; --distance: calc(var(--radius)/2.05); position:absolute; top:50%; left:50%; width:12px; height:calc(var(--distance)); background:linear-gradient(rgba(79,156,255,.55)); transform: rotate(calc(var(--angle)*1deg)) translateY(0); transform-origin:center top; opacity:.35; transition:.3s; }
+.skill-line.active-line { opacity:.9; background: linear-gradient(to bottom,#7fb2ff,transparent 80%); filter:drop-shadow(0 0 6px #7fb2ff); }
 
-.skill-orbit-wrapper {
-  background:var(--panel);
-  border:1px solid #242b33;
-  border-radius:7rem;
-  padding:7rem clamp(2rem,4vw,4rem);
-  position:relative;
-  overflow:hidden;
-  display:grid;
-  grid-template-columns:minmax(240px,320px) 1fr;
-  gap:3.5rem;
-}
+/* Skill items */
+.skill-item { --size:4.1rem; --angle:0; --distance: calc(var(--radius)/2.05); position:absolute; top:50%;left:50%; width:var(--size);height:var(--size); margin:calc(var(--size)/-2); transform: rotate(calc(var(--angle)*1deg)) translateY(calc(var(--distance)*-1)) rotate(calc(var(--angle)*-1deg)); background:#1f252d; border:1px solid rgba(255,255,255,.08); border-radius:1.2rem; display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:600; text-align:center; color:var(--muted); cursor:pointer; transition:.4s; box-shadow:0 4px 20px -8px rgba(0,0,0,.5); }
+/* Прибираємо подвійне контр-обертання – НЕ обертаємо .skill-label всередині */
+.skill-item .skill-label { display:inline-block; /* без transform */ }
 
-.skill-details {
-  align-self:start;
-  background: #2e47ff;
-  border:1px solid rgba(255,255,255,.08);
-  padding:1.5rem 1.6rem 1.8rem;
-  border-radius:1.4rem;
-  box-shadow:0 6px 28px -10px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.04);
-  display:flex;
-  flex-direction:column;
-  gap:.9rem;
-  opacity:.0;
-  transform:translateX(-1.5rem);
-  transition:.45s;
-}
+.skill-item:hover, .skill-item.active { background:var(--accent-grad); color:#fff; transform: rotate(calc(var(--angle)*1deg)) translateY(calc(var(--distance)*-1)) rotate(calc(var(--angle)*-1deg)) scale(1.18); z-index:10; box-shadow:0 10px 32px -8px rgba(79,156,255,.6); }
+.skill-item:focus-visible { outline:2px solid #88b6ff; outline-offset:4px; }
 
-.skill-details.visible {
-  opacity:1;
-  transform:translateX(0);
-}
-
-.skill-details h3 {
-  margin:0;
-  font-size:1.15rem;
-  font-weight:600;
-}
-
-.skill-details p {
-  margin:0;
-  font-size:.85rem;
-  line-height:1.45;
-  color:white;
-}
-
-.skill-orbit {
-  position:relative;
-  width:var(--radius);
-  height:var(--radius);
-  margin:auto;
-  animation: subtle-rotate var(--orbit-speed) linear infinite;
-}
-
-@keyframes subtle-rotate {
-  from { transform:rotate(0deg); }
-  to   { transform:rotate(360deg); }
-}
-
-.skill-core {
-  --size:6.2rem;
-  position:absolute;
-  top:50%;left:50%;
-  width:var(--size);height:var(--size);
-  margin:calc(var(--size)/-2);
-  background: radial-gradient(circle at 30% 30%,#4f9cff,#1e2530 70%);
-  border:2px solid rgba(255,255,255,.15);
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:600;
-  letter-spacing:.04em;
-  color:#fff;
-  box-shadow:0 0 0 6px rgba(79,156,255,.08),0 10px 30px -8px rgba(79,156,255,.55);
-  backdrop-filter: blur(4px);
-}
-
-/* Контейнер, що обертається цілком (лінії + вузли) */
-.skill-rotator {
-  position: relative;
-  width: var(--radius);
-  height: var(--radius);
-  margin: auto;
-}
-
-/* Тонкі лінії, що починаються від центру та йдуть до вузлів */
-.skill-line {
-  --angle: 0;
-  --distance: calc(var(--radius)/2.05);
-  position: absolute;
-  top: 50%; left: 50%;
-  width: 12px; height: calc(var(--distance));
-    background: rgba(90,156,255,.55);  transform:
-    rotate(calc(var(--angle) * 1deg))
-    translateY(0);
-  transform-origin: center top;
-  opacity: .35;
-}
-
-
-
-/* Оновлення: вузол успадковує --angle і вже має базові трансформації */
-.skill-item {
-  --size:4.1rem;
-  --angle:0;
-  --distance: calc(var(--radius)/2.05);
-  position:absolute;
-  top:50%;left:50%;
-  width:var(--size);height:var(--size);
-  margin:calc(var(--size)/-2);
-  transform:
-    rotate(calc(var(--angle)*1deg))
-    translateY(calc(var(--distance)*-1))
-    rotate(calc(var(--angle)*-1deg));
-  background: #101e77;
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:1.2rem;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:.72rem;
-  font-weight:600;
-  text-align:center;
-  color: white;
-  cursor:pointer;
-  transition:.4s;
-  box-shadow:0 4px 20px -8px rgba(0,0,0,.5);
-}
-
-
-
-.skill-item:hover,
-.skill-item.active {
-  background:var(--accent-grad);
-  color:#fff;
-  transform:
-    rotate(calc(var(--angle)*1deg))
-    translateY(calc(var(--distance)*-1))
-    rotate(calc(var(--angle)*-1deg))
-    scale(1.18);
-  z-index:10;
-  box-shadow:0 10px 32px -8px rgba(79,156,255,.6);
-}
-
-.skill-item:hover:before,
-.skill-item.active:before {
-  opacity:.85;
-  filter:drop-shadow(0 0 6px #4f9cff);
-}
+/* Трохи підсильню glow центру на ховер */
+.skill-core:hover { box-shadow: 0 0 0 8px rgba(79,156,255,.12), 0 14px 40px -8px rgba(79,156,255,.75); }
 
 @media (max-width:1100px) {
   .skill-orbit-wrapper {
