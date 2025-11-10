@@ -43,15 +43,15 @@ function WhyEJF() {
         </div>
         <div>
           <h2>Розкажи про свій попередній досвід що стосується посади, на яку подаєшся.</h2>
-          <div className="role-toggle">
+          <div className="category-switch">
             <button
-              className={`role-btn ${selectedRole === 'CR' ? 'active' : ''}`}
+              className={` ${selectedRole === 'CR' ? 'active' : ''}`}
               onClick={() => setSelectedRole('CR')}
             >
               CR
             </button>
             <button
-              className={`role-btn ${selectedRole === 'IT' ? 'active' : ''}`}
+              className={` ${selectedRole === 'IT' ? 'active' : ''}`}
               onClick={() => setSelectedRole('IT')}
             >
               IT
@@ -63,15 +63,15 @@ function WhyEJF() {
         </div>
           <div>
               <h2>Як би ти хотів/ла розвинутися в кортімі чи що хотів/ла б отримати від неї? </h2>
-              <div className="role-toggle">
+              <div className="category-switch">
                   <button
-                      className={`role-btn ${selectedRole2 === 'CR' ? 'active' : ''}`}
+                      className={` ${selectedRole2 === 'CR' ? 'active' : ''}`}
                       onClick={() => setSelectedRole2('CR')}
                   >
                       CR
                   </button>
                   <button
-                      className={`role-btn ${selectedRole2 === 'IT' ? 'active' : ''}`}
+                      className={` ${selectedRole2 === 'IT' ? 'active' : ''}`}
                       onClick={() => setSelectedRole2('IT')}
                   >
                       IT

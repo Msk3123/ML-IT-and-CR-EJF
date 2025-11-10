@@ -1,6 +1,6 @@
 /* File: src/App.css */
 .App {
-    text-align: center;
+    text-align: left;
     position: relative;
     overflow-x: hidden;
 }
@@ -11,6 +11,8 @@
     background-size: 200% 200%;
     min-height: 15vh;
     display: flex;
+    gap: 20px; /* Додайте цей рядок */
+
     align-items: center;
     justify-content: center;
     font-size: calc(10px + 2vmin);

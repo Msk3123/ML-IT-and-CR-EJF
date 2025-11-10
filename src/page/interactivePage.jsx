@@ -4,20 +4,32 @@ import { interactiveData } from '../data/interactiveData';
 
 function InteractivePage() {
     const [selectedRole, setSelectedRole] = useState('CR');
+    const [selectedTemplate, setSelectedTemplate] = useState('Shablone1');
+
+    const renderContent =
+        selectedRole === 'CR'
+            ? interactiveData.CR(selectedTemplate, setSelectedTemplate)
+            : interactiveData[selectedRole];
 
     return (
         <div className="interactive-page">
             <h1 className="interactive-page-title">Додаткове завдання</h1>
-            <div className="interactive-content">
+            <div className="category-switch">
                 <button
-                    className={`interactive-button ${selectedRole === 'CR' ? 'active' : ''}`}
+                    className={` ${selectedRole === 'CR' ? 'active' : ''}`}
                     onClick={() => setSelectedRole('CR')}
-                >CR</button>
+                >
+                    CR
+                </button>
                 <button
-                    className={`interactive-button ${selectedRole === 'IT' ? 'active' : ''}`}
+                    className={` ${selectedRole === 'IT' ? 'active' : ''}`}
                     onClick={() => setSelectedRole('IT')}
-                >IT</button>
-                {interactiveData[selectedRole]}
+                >
+                    IT
+                </button>
+            </div>
+            <div className="role-content">
+                {renderContent}
             </div>
         </div>
     );
