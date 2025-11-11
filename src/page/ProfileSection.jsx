@@ -1,13 +1,16 @@
 // Новий компонент ProfileSection з оновленими назвами змінних і класів
 import '../style/ProfileSection.css';
 import profilePhoto from '../assets/Моє фото.jpg';
+import profilePhotoCR from '../assets/МоєФотоCR.jpg';
 
-function ProfileSection() {
+function ProfileSection({selectedCategory}) {
+    const myPhoto = selectedCategory === 'CR' ? profilePhotoCR : profilePhoto;
+    
     return (
         <div className="page-container">
             <section className="profile-section">
                 <div className="profile-layout">
-                    <img src={profilePhoto} alt="Палій Максим" className="profile-photo" />
+                    <img src={myPhoto} alt="Палій Максим" className="profile-photo" />
                     <div className="profile-text">
                         <h1>Хто я?</h1>
                         <p>Я, Максим Палій, учасник того ж набору, що і ти, подаюся в команду ІЯК, і в цьому листі поясню свою мотивацію.

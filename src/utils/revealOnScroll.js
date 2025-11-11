@@ -1,4 +1,3 @@
-// Utility: intersection observer for reveal animations
 export function initRevealOnScroll(options = {}) {
   const selector = options.selector || '.reveal, .animated-section';
   const visibleClass = options.visibleClass || 'is-visible';

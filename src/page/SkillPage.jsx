@@ -1,90 +1,65 @@
 import React, { useState, useMemo } from "react";
 import "../style/SkillPage.css";
-import { SKILL_DATA } from "../data/SkilsData";
+import { SKILL_DATA } from "../data/dataWebSite";
 
-// Дані навичок для двох категорій
-export default function SkillPage() {
-  // Поточна активна категорія (CR або IT)
-  const [activeCategory, setActiveCategory] = useState("CR");
-  // Поточна вибрана навичка всередині категорії
-  const [activeSkill, setActiveSkill] = useState(null);
+export default function SkillPage({ selectedCategory }) {
+    const [activeSkill, setActiveSkill] = useState(null);
 
-  // Масив навичок для відображення
-  const skillsForCategory = useMemo(() => SKILL_DATA[activeCategory], [activeCategory]);
+    // Отримуємо навички з пропсів
+    const skills = SKILL_DATA[selectedCategory];
 
-  // Рівномірний розподіл кутів для орбіти
-  const orbitItems = useMemo(() => {
-    const total = skillsForCategory.length;
-    // Старт з верхньої точки (-90deg) щоб перша навичка була зверху
-    return skillsForCategory.map((skill, index) => {
-      const angle = (index / total) * 360 - 90; // градуси
-      return { ...skill, angle };
-    });
-  }, [skillsForCategory]);
+    // Розподіляємо навички по колу
+    const orbitItems = useMemo(() => {
+        return skills.map((skill, index) => ({
+            ...skill,
+            angle: (360 / skills.length) * index,
+        }));
+    }, [skills]);
 
-  // Скинути вибір при зміні категорії
-  const handleSelectCategory = (category) => {
-    setActiveCategory(category);
-    setActiveSkill(null);
-  };
+    // Скидання активної навички при зміні категорії
+    React.useEffect(() => {
+        setActiveSkill(null);
+    }, [selectedCategory]);
 
-  return (
-    <div className="skills-section fade-in">
-      {/* Заголовок з перемикачами категорій */}
-      <header className="skills-header">
-        <h2>SKILLs</h2>
-        <div className="category-switch">
-          <button
-            className={activeCategory === "CR" ? "active" : ""}
-            onClick={() => handleSelectCategory("CR")}
-          >
-            CR
-          </button>
-          <button
-            className={activeCategory === "IT" ? "active" : ""}
-            onClick={() => handleSelectCategory("IT")}
-          >
-            IT
-          </button>
-        </div>
-      </header>
+    return (
+        <div className="skills-section fade-in">
+            <header className="skills-header">
+                <h2>SKILLs {selectedCategory}</h2>
+            </header>
 
-      {/* Основний блок орбіти + панель опису */}
-      <div className="skill-orbit-wrapper">
-        {/* Панель деталей навички */}
-        <div className={"skill-details " + (activeSkill ? "visible" : "")}>
-          <h3>{activeSkill ? activeSkill.name : "Обери навичку"}</h3>
-          <p>{activeSkill ? activeSkill.desc : "Натисни на будь-яку навичку, щоб побачити її опис."}</p>
-        </div>
+            <div className="skill-orbit-wrapper">
+                <div className={"skill-details " + (activeSkill ? "visible" : "")}>
+                    <h3>{activeSkill ? activeSkill.name : "Обери навичку"}</h3>
+                    <p>
+                        {activeSkill
+                            ? activeSkill.desc
+                            : "Натисни на будь-яку навичку, щоб побачити її опис."}
+                    </p>
+                </div>
 
-        {/* Ротатор: обертає лінії та вузли */}
-        <div className="skill-rotator">
-          {/* Лінії від центру до вузлів */}
-          {orbitItems.map(item => (
-            <div
-              key={"line-" + item.id}
-              className="skill-line"
-              style={{ "--angle": item.angle }}
-            />
-          ))}
+                <div className="skill-rotator">
+                    {orbitItems.map((item) => (
+                        <div
+                            key={"line-" + item.id}
+                            className="skill-line"
+                            style={{ "--angle": item.angle }}
+                        />
+                    ))}
 
-          {/* Центральне ядро */}
-          <div className="skill-core">{activeCategory}</div>
+                    <div className="skill-core">{selectedCategory}</div>
 
-          {/* Вузли навичок */}
-          {orbitItems.map(item => (
-            <div
-              key={item.id}
-              className={"skill-item " + (activeSkill?.id === item.id ? "active" : "")}
-              style={{ "--angle": item.angle }}
-              onClick={() => setActiveSkill(item)}
-            >
-              <span className="skill-label">{item.name}</span>
+                    {orbitItems.map((item) => (
+                        <div
+                            key={item.id}
+                            className={"skill-item " + (activeSkill?.id === item.id ? "active" : "")}
+                            style={{ "--angle": item.angle }}
+                            onClick={() => setActiveSkill(item)}
+                        >
+                            <span className="skill-label">{item.name}</span>
+                        </div>
+                    ))}
+                </div>
             </div>
-          ))}
         </div>
-      </div>
-    </div>
-  );
+    );
 }
-
