@@ -191,7 +191,7 @@
 }
 
 .skill-card-inner {
-    width:100%;
+    width:45%;
     aspect-ratio:1/1;
     background:#050505;
     border:2px solid #6a4a0a;
@@ -239,7 +239,8 @@
     justify-content:center;
     gap:2.5rem;
     padding:1.5rem 0;
-    flex-wrap: wrap; /* дозволяємо перенесення */
+    
+
 }
 
 /* 📱 Планшети */
@@ -247,6 +248,7 @@
     .skill-carousel {
         gap: 1.5rem;
         padding: 1.2rem 0;
+
     }
 }
 
@@ -255,6 +257,7 @@
     .skill-carousel {
         gap: 1rem;
         padding: 1rem 0;
+
     }
 }
 
@@ -268,3 +271,32 @@
         transition-duration: 0.01ms !important;
     }
 }
+
+.skill-carousel-wrapper {
+    overflow: hidden;
+    width: 100%;
+}
+
+.skill-carousel-track {
+    display: flex;
+    gap: 30px;
+    animation: scroll 20s linear infinite;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.skill-card {
+    flex-shrink: 0;
+    width: 150px;
+}
+
+
+
+

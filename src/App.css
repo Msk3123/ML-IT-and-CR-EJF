@@ -583,7 +583,7 @@ body {
 /* 📱 Планшети */
 @media (max-width: 768px) {
     .category-switch {
-        gap: 0.8rem;
+        gap: 1rem;
     }
     
     .category-switch button {
@@ -597,6 +597,7 @@ body {
 @media (max-width: 480px) {
     .category-switch {
         gap: 0.5rem;
+        padding-right: 1.5rem;
     }
     
     .category-switch button {
