@@ -4,6 +4,23 @@
     gap: 12px;
     margin: 20px 0;
     justify-content: center;
+    flex-wrap: wrap; /* дозволяємо перенесення */
+}
+
+/* 📱 Планшети */
+@media (max-width: 768px) {
+    .role-toggle {
+        gap: 10px;
+        margin: 16px 0;
+    }
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .role-toggle {
+        gap: 8px;
+        margin: 12px 0;
+    }
 }
 
 .role-btn {
@@ -18,6 +35,24 @@
     transition: all 0.3s ease;
 }
 
+/* 📱 Планшети */
+@media (max-width: 768px) {
+    .role-btn {
+        padding: 8px 18px;
+        font-size: 0.9rem;
+    }
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .role-btn {
+        padding: 6px 14px;
+        font-size: 0.85rem;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+    }
+}
+
 .role-btn:hover {
     background: #0a4e8c;
     color: white;
@@ -25,10 +60,25 @@
     box-shadow: 0 4px 12px rgba(10, 78, 140, 0.3);
 }
 
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .role-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(10, 78, 140, 0.25);
+    }
+}
+
 .role-btn.active {
     background: #0a4e8c;
     color: white;
     box-shadow: 0 8px 20px rgba(10, 78, 140, 0.45);
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .role-btn.active {
+        box-shadow: 0 6px 16px rgba(10, 78, 140, 0.35);
+    }
 }
 
 .experience-content {
@@ -38,6 +88,14 @@
     will-change: transform, opacity;
 }
 
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .experience-content {
+        margin-top: 12px;
+        animation-duration: 0.3s;
+        will-change: auto; /* економія пам'яті */
+    }
+}
 
 @keyframes fade-slide {
     0% { opacity: 0; transform: translateY(10px); }
@@ -46,36 +104,105 @@
 
 .animated-section {
     opacity: 0;
-    transform: translateY(40px); /* Зсуваємо на 40px вниз */
-    transition: opacity 0.7s ease-out, transform 0.7s ease-out; /* Плавність анімації */
+    transform: translateY(40px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
 }
 
-/* 
-  Цей клас буде додаватися за допомогою JavaScript, 
-  коли блок потрапить у видиму зону екрана.
-  Він повертає блок у його нормальний, видимий стан.
-*/
+/* 📱 Планшети */
+@media (max-width: 768px) {
+    .animated-section {
+        transform: translateY(24px);
+        transition-duration: 0.5s;
+    }
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .animated-section {
+        transform: translateY(16px);
+        transition-duration: 0.4s;
+    }
+}
+
 .animated-section.is-visible {
     opacity: 1;
-    transform: translateY(0); /* Повертаємо на місце */
+    transform: translateY(0);
 }
 
-/* Контейнер з плавним появленням дочірніх елементів */
-.question-toggle, .experience-content { will-change: transform, opacity; }
+.question-toggle, 
+.experience-content { 
+    will-change: transform, opacity; 
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .question-toggle,
+    .experience-content {
+        will-change: auto;
+    }
+}
 
 /* Хвиля світла під заголовками */
-.profile-section h2 { position: relative; overflow: visible; }
-.profile-section h2::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 3px;
-  background: linear-gradient(90deg, transparent, rgba(10,78,140,.4), transparent);
-  transform: scaleX(0); transform-origin: left; transition: transform .5s ease;
+.profile-section h2 { 
+    position: relative; 
+    overflow: visible; 
 }
-.profile-section h2:is(:hover, :focus)::after { transform: scaleX(1); }
+
+.profile-section h2::after {
+    content: ""; 
+    position: absolute; 
+    left: 0; 
+    right: 0; 
+    bottom: -6px; 
+    height: 3px;
+    background: linear-gradient(90deg, transparent, rgba(10,78,140,.4), transparent);
+    transform: scaleX(0); 
+    transform-origin: left; 
+    transition: transform .5s ease;
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .profile-section h2::after {
+        height: 2px;
+        bottom: -4px;
+        transition-duration: .3s;
+    }
+}
+
+.profile-section h2:is(:hover, :focus)::after { 
+    transform: scaleX(1); 
+}
 
 /* Легкий градієнтний фон для блоку запитань */
-.page-container { position: relative; }
+.page-container { 
+    position: relative; 
+}
+
 .page-container::before {
-  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
-  background: radial-gradient(60% 40% at 20% 10%, rgba(10,78,140,.06), transparent 60%),
-              radial-gradient(50% 40% at 80% 30%, rgba(10,78,140,.05), transparent 60%);
+    content: ""; 
+    position: absolute; 
+    inset: 0; 
+    pointer-events: none; 
+    z-index: 0;
+    background: radial-gradient(60% 40% at 20% 10%, rgba(10,78,140,.06), transparent 60%),
+                radial-gradient(50% 40% at 80% 30%, rgba(10,78,140,.05), transparent 60%);
+}
+
+/* 📱 Телефони - вимикаємо для продуктивності */
+@media (max-width: 480px) {
+    .page-container::before {
+        display: none;
+    }
+}
+
+/* === PERFORMANCE OPTIMIZATION === */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }

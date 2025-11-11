@@ -10,89 +10,511 @@
   --muted:#7a8696;
   --danger:#ff6f6f;
   --radius: clamp(14rem,40vw,28rem);
-  --orbit-speed: 40s;
+  --orbit-speed: 1s;
+    
   font-family: system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
 }
 
-body { background: radial-gradient(circle at 30% 30%,#16202b,#0d1014 70%); color:var(--text); }
-
-.skills-section { max-width:1400px; margin:0 auto; padding:6rem 2rem 5rem; display:flex; flex-direction:column; gap:3rem; }
-
-.skills-header { align-self:center; backdrop-filter: blur(16px); background:var(--glass); border:1px solid rgba(255,255,255,.1); padding:2.8rem 4.5rem 2.2rem; border-radius:2.75rem; text-align:center; position:relative; box-shadow:0 8px 32px -8px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.08); }
-.skills-header h2 { letter-spacing:.08em; font-weight:600; margin:0 0 1.4rem; font-size:1.4rem; color:var(--text); }
-
-.category-switch { display:flex; gap:1.2rem; justify-content:center; }
-.category-switch button { all:unset; cursor:pointer; min-width:5.5rem; padding:.85rem 1.4rem; text-align:center; font-size:1rem; font-weight:600; color:var(--text); background:linear-gradient(#202833,#1a1f26); border:1px solid rgba(255,255,255,.12); border-radius:.95rem; position:relative; transition:.35s; }
-.category-switch button:before { content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; background:linear-gradient(140deg,rgba(255,255,255,.25),transparent 55%); opacity:.35; mix-blend-mode:overlay; }
-.category-switch button:hover { background:var(--accent-grad); color:#fff; transform:translateY(-4px); box-shadow:0 6px 24px -8px #4f9cff,0 0 0 1px rgba(255,255,255,.18); }
-.category-switch button.active { background:var(--accent-grad); box-shadow:0 0 0 1px rgba(255,255,255,.25),0 8px 28px -6px rgba(79,156,255,.55); color:#fff; }
-
-/* Orbit wrapper */
-.skill-orbit-wrapper { background:var(--panel); border:1px solid #242b33; border-radius:7rem; padding:7rem clamp(2rem,4vw,4rem); position:relative; overflow:hidden; display:grid; grid-template-columns:minmax(240px,320px) 1fr; gap:3.5rem; }
-
-.skill-details { align-self:start; background:#12171d; border:1px solid rgba(255,255,255,.08); padding:1.5rem 1.6rem 1.8rem; border-radius:1.4rem; box-shadow:0 6px 28px -10px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.04); display:flex; flex-direction:column; gap:.9rem; opacity:.0; transform:translateX(-1.5rem); transition:.45s; }
-.skill-details.visible { opacity:1; transform:translateX(0); }
-.skill-details h3 { margin:0; font-size:1.15rem; font-weight:600; }
-.skill-details p { margin:0; font-size:.85rem; line-height:1.45; color:var(--muted); }
-
-/* Rotator (не обертаємо зараз щоб текст був статичним – прибрав анімацію) */
-.skill-rotator { position: relative; width: var(--radius); height: var(--radius); margin: auto; }
-/* Якщо потрібно повернути обертання – розкоментуй: */
-/* .skill-rotator { animation: subtle-rotate var(--orbit-speed) linear infinite; } */
-.skill-rotator:hover { animation-play-state: paused; }
-
-@keyframes subtle-rotate { from { transform:rotate(0deg);} to { transform:rotate(360deg);} }
-
-.skill-core { --size:6.2rem; position:absolute; top:50%;left:50%; width:var(--size);height:var(--size); margin:calc(var(--size)/-2); background: radial-gradient(circle at 30% 30%,#4f9cff,#1e2530 70%); border:2px solid rgba(255,255,255,.15); border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:600; letter-spacing:.04em; color:#fff; box-shadow:0 0 0 6px rgba(79,156,255,.08),0 10px 30px -8px rgba(79,156,255,.55); backdrop-filter: blur(4px); }
-.skill-core:hover { box-shadow:0 0 0 8px rgba(79,156,255,.12), 0 14px 40px -8px rgba(79,156,255,.75); }
-
-/* ЛІнііі */
-.skill-line { --angle:0; --distance: calc(var(--radius)/2.05); position:absolute; top:50%; left:50%; width:12px; height:calc(var(--distance)); background:linear-gradient(rgba(79,156,255,.55)); transform: rotate(calc(var(--angle)*1deg)) translateY(0); transform-origin:center top; opacity:.35; transition:.3s; }
-.skill-line.active-line { opacity:.9; background: linear-gradient(to bottom,#7fb2ff,transparent 80%); filter:drop-shadow(0 0 6px #7fb2ff); }
-
-/* Скілти items */
-.skill-item { --size:4.1rem; --angle:0; --distance: calc(var(--radius)/2.05); position:absolute; top:50%;left:50%; width:var(--size);height:var(--size); margin:calc(var(--size)/-2); transform: rotate(calc(var(--angle)*1deg)) translateY(calc(var(--distance)*-1)) rotate(calc(var(--angle)*-1deg)); background:#1f252d; border:1px solid rgba(255,255,255,.08); border-radius:1.2rem; display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:600; text-align:center; color:var(--muted); cursor:pointer; transition:.4s; box-shadow:0 4px 20px -8px rgba(0,0,0,.5); }
-
-.skill-item .skill-label { display:inline-block; /* без transform */ }
-
-.skill-item:hover, .skill-item.active { background:var(--accent-grad); color:#fff; transform: rotate(calc(var(--angle)*1deg)) translateY(calc(var(--distance)*-1)) rotate(calc(var(--angle)*-1deg)) scale(1.18); z-index:10; box-shadow:0 10px 32px -8px rgba(79,156,255,.6); }
-.skill-item:focus-visible { outline:2px solid #88b6ff; outline-offset:4px; }
-
-/* Трохи підсильню */
-.skill-core:hover { box-shadow: 0 0 0 8px rgba(79,156,255,.12), 0 14px 40px -8px rgba(79,156,255,.75); }
-
-@media (max-width:1100px) {
-  .skill-orbit-wrapper {
-    grid-template-columns:1fr;
-    padding:5rem 2rem 6rem;
-  }
-  .skill-details {
-    order:2;
-  }
-  .skill-orbit {
-    --radius: clamp(18rem,70vw,26rem);
-  }
+body { 
+    background: radial-gradient(circle at 30% 30%,#16202b,#0d1014 70%); 
+    color:var(--text); 
 }
 
-@media (max-width:700px) {
-  .skills-header {
-    width:100%;
-    padding:2.4rem 2.2rem 1.9rem;
-    border-radius:2.1rem;
-  }
-  .skill-orbit-wrapper {
-    border-radius:3.5rem;
-    padding:4.5rem 1.25rem 5rem;
-  }
-  .skill-orbit {
-    --radius: clamp(16rem,88vw,22rem);
-  }
-  .skill-item { --size:3.5rem; font-size:.65rem; }
-  .skill-core { --size:5rem; font-size:.7rem; }
+.skills-section { 
+    max-width:1400px; 
+    margin:0 auto; 
+    padding:6rem 2rem 5rem; 
+    display:flex; 
+    flex-direction:column; 
+    gap:3rem; 
+}
+
+/* 📱 Планшети */
+@media (max-width: 768px) {
+    .skills-section {
+        padding: 4rem 1.5rem 3.5rem;
+        gap: 2rem;
+    }
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .skills-section {
+        padding: 3rem 1rem 2.5rem;
+        gap: 1.5rem;
+    }
+}
+
+.skills-header { 
+    align-self:center; 
+    backdrop-filter: blur(16px); 
+    background:var(--glass); 
+    border:1px solid rgba(255,255,255,.1); 
+    padding:2.8rem 4.5rem 2.2rem; 
+    border-radius:2.75rem; 
+    text-align:center; 
+    position:relative; 
+    box-shadow:0 8px 32px -8px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.08); 
+}
+
+/* 📱 Планшети */
+@media (max-width: 768px) {
+    .skills-header {
+        padding: 2.4rem 2.2rem 1.9rem;
+        border-radius: 2.1rem;
+    }
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .skills-header {
+        width: 100%;
+        padding: 2rem 1.5rem 1.6rem;
+        border-radius: 1.8rem;
+        backdrop-filter: blur(12px); /* легше для телефону */
+    }
+}
+
+.skills-header h2 { 
+    letter-spacing:.08em; 
+    font-weight:600; 
+    margin:0 0 1.4rem; 
+    font-size:1.4rem; 
+    color:var(--text); 
+}
+
+/* 📱 Планшети */
+@media (max-width: 768px) {
+    .skills-header h2 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .skills-header h2 {
+        font-size: 1rem;
+        margin-bottom: 0.8rem;
+    }
+}
+
+.category-switch { 
+    display:flex; 
+    gap:1.2rem; 
+    justify-content:center;
+    flex-wrap: wrap; /* дозволяємо перенесення */
+}
+
+/* 📱 Планшети */
+@media (max-width: 768px) {
+    .category-switch {
+        gap: 0.8rem;
+    }
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .category-switch {
+        gap: 0.6rem;
+    }
+}
+
+.category-switch button { 
+    all:unset; 
+    cursor:pointer; 
+    min-width:5.5rem; 
+    padding:.85rem 1.4rem; 
+    text-align:center; 
+    font-size:1rem; 
+    font-weight:600; 
+    color:var(--text); 
+    background:linear-gradient(#202833,#1a1f26); 
+    border:1px solid rgba(255,255,255,.12); 
+    border-radius:.95rem; 
+    position:relative; 
+    transition:.35s; 
+}
+
+/* 📱 Планшети */
+@media (max-width: 768px) {
+    .category-switch button {
+        min-width: 4.5rem;
+        padding: .7rem 1.1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .category-switch button {
+        min-width: auto;
+        padding: .6rem .9rem;
+        font-size: 0.85rem;
+        border-radius: .7rem;
+        transition: .2s; /* швидший перехід */
+    }
+}
+
+.category-switch button:before { 
+    content:""; 
+    position:absolute; 
+    inset:0; 
+    border-radius:inherit; 
+    pointer-events:none; 
+    background:linear-gradient(140deg,rgba(255,255,255,.25),transparent 55%); 
+    opacity:.35; 
+    mix-blend-mode:overlay; 
+}
+
+.category-switch button:hover { 
+    background:var(--accent-grad); 
+    color:#fff; 
+    transform:translateY(-4px); 
+    box-shadow:0 6px 24px -8px #4f9cff,0 0 0 1px rgba(255,255,255,.18); 
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .category-switch button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px -6px #4f9cff;
+    }
+}
+
+.category-switch button.active { 
+    background:var(--accent-grad); 
+    box-shadow:0 0 0 1px rgba(255,255,255,.25),0 8px 28px -6px rgba(79,156,255,.55); 
+    color:#fff; 
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .category-switch button.active {
+        box-shadow: 0 0 0 1px rgba(255,255,255,.2), 0 6px 20px -4px rgba(79,156,255,.4);
+    }
+}
+
+/* Orbit wrapper */
+.skill-orbit-wrapper { 
+    background:var(--panel); 
+    border:1px solid #242b33; 
+    border-radius:7rem; 
+    padding:7rem clamp(2rem,4vw,4rem); 
+    position:relative; 
+    overflow:hidden; 
+    display:grid; 
+    grid-template-columns:minmax(240px,320px) 1fr; 
+    gap:3.5rem; 
+}
+
+/* 📱 Планшети */
+@media (max-width: 1100px) {
+    .skill-orbit-wrapper {
+        grid-template-columns: 1fr;
+        padding: 5rem 2rem 6rem;
+        gap: 2rem;
+    }
+}
+
+/* 📱 Телефони */
+@media (max-width: 700px) {
+    .skill-orbit-wrapper {
+        border-radius: 3.5rem;
+        padding: 4.5rem 1.25rem 5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .skill-orbit-wrapper {
+        border-radius: 2.5rem;
+        padding: 3rem 1rem 4rem;
+    }
+}
+
+.skill-details { 
+    align-self:start; 
+    background:#12171d; 
+    border:1px solid rgba(255,255,255,.08); 
+    padding:1.5rem 1.6rem 1.8rem; 
+    border-radius:1.4rem; 
+    box-shadow:0 6px 28px -10px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.04); 
+    display:flex; 
+    flex-direction:column; 
+    gap:.9rem; 
+    opacity:.0; 
+    transform:translateX(-1.5rem); 
+    transition:.45s; 
+}
+
+/* 📱 Планшети */
+@media (max-width: 1100px) {
+    .skill-details {
+        order: 2;
+    }
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .skill-details {
+        padding: 1.2rem 1.3rem 1.5rem;
+        border-radius: 1rem;
+        transition: .3s;
+    }
+}
+
+.skill-details.visible { 
+    opacity:1; 
+    transform:translateX(0); 
+}
+
+.skill-details h3 { 
+    margin:0; 
+    font-size:1.15rem; 
+    font-weight:600; 
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .skill-details h3 {
+        font-size: 1rem;
+    }
+}
+
+.skill-details p { 
+    margin:0; 
+    font-size:.85rem; 
+    line-height:1.45; 
+    color:var(--muted); 
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .skill-details p {
+        font-size: .8rem;
+        line-height: 1.4;
+    }
+}
+
+/* Rotator */
+.skill-rotator { 
+    position: relative; 
+    width: var(--radius); 
+    height: var(--radius); 
+    margin: auto; 
+}
+
+/* 📱 Телефони - менший радіус */
+@media (max-width: 700px) {
+    .skill-rotator {
+        --radius: clamp(16rem, 88vw, 22rem);
+    }
+}
+
+@media (max-width: 480px) {
+    .skill-rotator {
+        --radius: clamp(14rem, 85vw, 18rem);
+    }
+}
+
+.skill-rotator:hover { 
+    animation-play-state: paused; 
+}
+
+@keyframes subtle-rotate { 
+    from { transform:rotate(0deg);} 
+    to { transform:rotate(360deg);} 
+}
+
+.skill-core { 
+    --size:6.2rem; 
+    position:absolute; 
+    top:50%;
+    left:50%; 
+    width:var(--size);
+    height:var(--size); 
+    margin:calc(var(--size)/-2); 
+    background: radial-gradient(circle at 30% 30%,#4f9cff,#1e2530 70%); 
+    border:2px solid rgba(255,255,255,.15); 
+    border-radius:50%; 
+    display:flex; 
+    align-items:center; 
+    justify-content:center; 
+    font-weight:600; 
+    letter-spacing:.04em; 
+    color:#fff; 
+    box-shadow:0 0 0 6px rgba(79,156,255,.08),0 10px 30px -8px rgba(79,156,255,.55); 
+    backdrop-filter: blur(4px);
+    
+}
+@keyframes subtle-rotate { 
+    from { transform:rotate(0deg);} 
+    to { transform:rotate(360deg);} 
+}
+
+/* 📱 Телефони */
+@media (max-width: 700px) {
+    .skill-core {
+        --size: 5rem;
+        font-size: .7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .skill-core {
+        --size: 4.5rem;
+        font-size: .65rem;
+        box-shadow: 0 0 0 4px rgba(79,156,255,.06), 0 6px 20px -6px rgba(79,156,255,.45);
+    }
+}
+
+.skill-core:hover { 
+    box-shadow:0 0 0 8px rgba(79,156,255,.12), 0 14px 40px -8px rgba(79,156,255,.75);
+    animation: subtle-rotate var(--orbit-speed) linear infinite;
+
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .skill-core:hover {
+        box-shadow: 0 0 0 6px rgba(79,156,255,.1), 0 10px 30px -6px rgba(79,156,255,.65);
+    }
+}
+
+/* Лінії */
+.skill-line { 
+    --angle:0; 
+    --distance: calc(var(--radius)/2.05); 
+    position:absolute; 
+    top:50%; 
+    left:50%; 
+    width:12px; 
+    height:calc(var(--distance)); 
+    background:linear-gradient(rgba(79,156,255,.55)); 
+    transform: rotate(calc(var(--angle)*1deg)) translateY(0); 
+    transform-origin:center top; 
+    opacity:.35; 
+    transition:.3s; 
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .skill-line {
+        width: 8px;
+        opacity: .25;
+    }
+}
+
+.skill-line.active-line { 
+    opacity:.9; 
+    background: linear-gradient(to bottom,#7fb2ff,transparent 80%); 
+    filter:drop-shadow(0 0 6px #7fb2ff); 
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .skill-line.active-line {
+        opacity: .75;
+        filter: drop-shadow(0 0 4px #7fb2ff);
+    }
+}
+
+/* Скіли items */
+.skill-item { 
+    --size:4.1rem; 
+    --angle:0; 
+    --distance: calc(var(--radius)/2.05); 
+    position:absolute;
+    padding: 0 0.5rem;
+    line-height: 1.2;
+    top:50%;
+    left:50%; 
+    width:var(--size);
+    height:var(--size); 
+    margin:calc(var(--size)/-2); 
+    transform: rotate(calc(var(--angle)*1deg)) translateY(calc(var(--distance)*-1)) rotate(calc(var(--angle)*-1deg)); 
+    background:#1f252d; 
+    border:1px solid rgba(255,255,255,.08); 
+    border-radius:1.2rem; 
+    display:flex; 
+    align-items:center; 
+    justify-content:center; 
+    font-size:.72rem; 
+    font-weight:600; 
+    text-align:center; 
+    color:var(--muted); 
+    cursor:pointer; 
+    transition:.4s; 
+    box-shadow:0 4px 20px -8px rgba(0,0,0,.5); 
+}
+
+/* 📱 Телефони */
+@media (max-width: 700px) {
+    .skill-item {
+        --size: 3.5rem;
+        font-size: .65rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .skill-item {
+        --size: 3rem;
+        font-size: .6rem;
+        border-radius: 1rem;
+        transition: .25s;
+    }
+}
+
+.skill-item .skill-label { 
+    display:inline-block; 
+}
+
+.skill-item:hover, 
+.skill-item.active { 
+    background:var(--accent-grad); 
+    color:#fff; 
+    transform: rotate(calc(var(--angle)*1deg)) translateY(calc(var(--distance)*-1)) rotate(calc(var(--angle)*-1deg)) scale(1.18); 
+    z-index:10; 
+    box-shadow:0 10px 32px -8px rgba(79,156,255,.6); 
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .skill-item:hover,
+    .skill-item.active {
+        transform: rotate(calc(var(--angle)*1deg)) translateY(calc(var(--distance)*-1)) rotate(calc(var(--angle)*-1deg)) scale(1.12);
+        box-shadow: 0 8px 24px -6px rgba(79,156,255,.5);
+    }
+}
+
+.skill-item:focus-visible { 
+    outline:2px solid #88b6ff; 
+    outline-offset:4px; 
 }
 
 .fade-in {
-  animation:fade .8s ease forwards;
-  opacity:0;
+    animation:fade .8s ease forwards;
+    opacity:0;
 }
-@keyframes fade { to { opacity:1; } }
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .fade-in {
+        animation-duration: .5s;
+    }
+}
+
+@keyframes fade { 
+    to { opacity:1; } 
+}
+
+/* === PERFORMANCE OPTIMIZATION === */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

@@ -1,5 +1,4 @@
-.interactive-page{
-
+.interactive-page {
     background-color: #F0F4F8;
     color: #111827;
     border-radius: 50px;
@@ -7,39 +6,191 @@
     position: relative;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    width: 70%;          
-    margin: auto auto;    
+    width: 70%;
+    margin: auto auto;
     max-width: 1000px;
 }
 
-.interactive-page h1{
+/* 📱 Планшети */
+@media (max-width: 768px) {
+    .interactive-page {
+        width: 85%;
+        border-radius: 30px;
+        padding: 16px;
+    }
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .interactive-page {
+        width: 95%;
+        border-radius: 20px;
+        padding: 12px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.interactive-page h1 {
     text-align: center;
     margin-bottom: 20px;
     font-size: 24px;
 }
 
-.interactive-page p{
+/* 📱 Планшети */
+@media (max-width: 768px) {
+    .interactive-page h1 {
+        font-size: 20px;
+        margin-bottom: 16px;
+    }
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .interactive-page h1 {
+        font-size: 18px;
+        margin-bottom: 12px;
+    }
+}
+
+.interactive-page p {
     font-size: 16px;
     line-height: 1.6;
 }
 
-.category-switch { display:flex; gap:1.2rem; justify-content:center; }
-.category-switch button { all:unset; cursor:pointer; min-width:5.5rem; padding:.85rem 1.4rem; text-align:center; font-size:1rem; font-weight:600; color:var(--text); background:linear-gradient(#202833,#1a1f26); border:1px solid rgba(255,255,255,.12); border-radius:.95rem; position:relative; transition:.35s; }
-.category-switch button:before { content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; background:linear-gradient(140deg,rgba(255,255,255,.25),transparent 55%); opacity:.35; mix-blend-mode:overlay; }
-.category-switch button:hover { background:var(--accent-grad); color:#fff; transform:translateY(-4px); box-shadow:0 6px 24px -8px #4f9cff,0 0 0 1px rgba(255,255,255,.18); }
-.category-switch button.active { background:var(--accent-grad); box-shadow:0 0 0 1px rgba(255,255,255,.25),0 8px 28px -6px rgba(79,156,255,.55); color:#fff; }
+/* 📱 Планшети */
+@media (max-width: 768px) {
+    .interactive-page p {
+        font-size: 14px;
+    }
+}
 
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .interactive-page p {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+}
 
+.category-switch { 
+    display:flex; 
+    gap:1.2rem; 
+    justify-content:center;
+    flex-wrap: wrap;
+}
 
+/* 📱 Планшети */
+@media (max-width: 768px) {
+    .category-switch {
+        gap: 0.8rem;
+    }
+}
 
-.skill-card{
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .category-switch {
+        gap: 0.6rem;
+    }
+}
+
+.category-switch button { 
+    all:unset; 
+    cursor:pointer; 
+    min-width:5.5rem; 
+    padding:.85rem 1.4rem; 
+    text-align:center; 
+    font-size:1rem; 
+    font-weight:600; 
+    color:var(--text); 
+    background:linear-gradient(#202833,#1a1f26); 
+    border:1px solid rgba(255,255,255,.12); 
+    border-radius:.95rem; 
+    position:relative; 
+    transition:.35s; 
+}
+
+/* 📱 Планшети */
+@media (max-width: 768px) {
+    .category-switch button {
+        min-width: 4.5rem;
+        padding: .7rem 1.1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .category-switch button {
+        min-width: auto;
+        padding: .6rem .9rem;
+        font-size: 0.85rem;
+        border-radius: .7rem;
+        transition: .2s;
+    }
+}
+
+.category-switch button:before { 
+    content:""; 
+    position:absolute; 
+    inset:0; 
+    border-radius:inherit; 
+    pointer-events:none; 
+    background:linear-gradient(140deg,rgba(255,255,255,.25),transparent 55%); 
+    opacity:.35; 
+    mix-blend-mode:overlay; 
+}
+
+.category-switch button:hover { 
+    background:var(--accent-grad); 
+    color:#fff; 
+    transform:translateY(-4px); 
+    box-shadow:0 6px 24px -8px #4f9cff,0 0 0 1px rgba(255,255,255,.18); 
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .category-switch button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px -6px #4f9cff;
+    }
+}
+
+.category-switch button.active { 
+    background:var(--accent-grad); 
+    box-shadow:0 0 0 1px rgba(255,255,255,.25),0 8px 28px -6px rgba(79,156,255,.55); 
+    color:#fff; 
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .category-switch button.active {
+        box-shadow: 0 0 0 1px rgba(255,255,255,.2), 0 6px 20px -4px rgba(79,156,255,.4);
+    }
+}
+
+.skill-card {
     display:flex;
     flex-direction:column;
     align-items:center;
     width:15rem;
 }
 
-.skill-card-inner{
+/* 📱 Планшети */
+@media (max-width: 768px) {
+    .skill-card {
+        width: 10rem;
+    }
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .skill-card {
+        width: 6rem;
+        position: relative;
+    }
+}
+
+.skill-card-inner {
     width:100%;
     aspect-ratio:1/1;
     background:#050505;
@@ -51,23 +202,69 @@
     box-shadow:0 0 18px 2px rgba(255,178,62,0.35), 0 0 6px 1px rgba(255,178,62,0.5) inset;
     transition:.35s;
 }
-.skill-icon{
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .skill-card-inner {
+        border-radius: 0.8rem;
+        transition: .25s;
+        box-shadow: 0 0 12px 1px rgba(255,178,62,0.3), 0 0 4px 1px rgba(255,178,62,0.4) inset;
+    }
+}
+
+.skill-icon {
     max-width:65%;
     max-height:65%;
     object-fit:contain;
     filter:drop-shadow(0 0 4px rgba(0,0,0,.6));
 }
 
-.skill-card-inner:hover{
+.skill-card-inner:hover {
     border-color:#ffb23e;
     box-shadow:0 0 24px 4px rgba(255,178,62,0.55), 0 0 10px 2px rgba(255,178,62,0.7) inset;
     transform:translateY(-6px);
 }
 
-.skill-carousel{
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .skill-card-inner:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 0 18px 3px rgba(255,178,62,0.45), 0 0 8px 1.5px rgba(255,178,62,0.6) inset;
+    }
+}
+
+.skill-carousel {
     display:flex;
     align-items:center;
     justify-content:center;
     gap:2.5rem;
     padding:1.5rem 0;
+    flex-wrap: wrap; /* дозволяємо перенесення */
+}
+
+/* 📱 Планшети */
+@media (max-width: 768px) {
+    .skill-carousel {
+        gap: 1.5rem;
+        padding: 1.2rem 0;
+    }
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .skill-carousel {
+        gap: 1rem;
+        padding: 1rem 0;
+    }
+}
+
+/* === PERFORMANCE OPTIMIZATION === */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }

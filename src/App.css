@@ -1,15 +1,28 @@
-/* File: src/App.css */
+/* === ROOT VARIABLES === */
+:root {
+    --text: #ffffff;
+    --accent-grad: linear-gradient(135deg, #4f9cff, #1a6bb5);
+}
+
+/* === BODY RESET === */
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* === MAIN APP CONTAINER === */
 .App {
     text-align: left;
     position: relative;
     overflow-x: hidden;
 }
 
-/* === Header === */
+/* === HEADER === */
 .App-header {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* розтягує три блоки по горизонталі */
+    justify-content: space-between;
     padding: 0 40px;
     background: linear-gradient(135deg, #001f3f 0%, #0a4e8c 60%, #1a6bb5 100%);
     height: 100px;
@@ -19,15 +32,35 @@
     color: white;
     z-index: 10;
     text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    box-shadow: 0 0 20px rgba(10,78,140,0.3);
+    animation: header-pulse 6s ease-in-out infinite;
 }
 
+/* 📱 Планшети */
+@media (max-width: 768px) {
+    .App-header {
+        height: 70px;
+        padding: 0 20px;
+    }
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .App-header {
+        height: 60px;
+        padding: 0 12px;
+        flex-wrap: wrap; /* дозволяє перенести елементи на новий рядок */
+    }
+}
+
+/* Header Layout */
 .header-left, .header-center, .header-right {
     display: flex;
     align-items: center;
 }
 
 .header-center {
-    flex: 1; /* дозволяє центру займати всю середину */
+    flex: 1;
     justify-content: center;
 }
 
@@ -36,6 +69,27 @@
     padding-right: 50px;
 }
 
+/* 📱 Планшети */
+@media (max-width: 768px) {
+    .header-right {
+        gap: 10px;
+        padding-right: 20px;
+    }
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .header-right {
+        gap: 6px;
+        padding-right: 0;
+    }
+    
+    .header-center {
+        display: none; /* приховуємо центральний блок, якщо місця мало */
+    }
+}
+
+/* Navigation Buttons */
 .nav-btn {
     background: transparent;
     border: 1px solid white;
@@ -44,23 +98,40 @@
     border-radius: 8px;
     cursor: pointer;
     transition: 0.3s;
+    font-size: 14px;
 }
 
 .nav-btn:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .nav-btn {
+        padding: 4px 8px;
+        font-size: 12px;
+        border-radius: 6px;
+    }
+}
 
-
+/* Header Shine Effect */
 .App-header::before {
     content: "";
-    position: sticky;
+    position: absolute;
     inset: 0;
     background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15), transparent 50%);
     animation: shine-move 8s linear infinite;
     pointer-events: none;
 }
 
+/* 📱 Телефони - вимикаємо для продуктивності */
+@media (max-width: 480px) {
+    .App-header::before {
+        display: none;
+    }
+}
+
+/* Logo */
 .EJF-logo {
     height: 50px;
     width: 50px;
@@ -75,21 +146,62 @@
     animation: spin 1.5s linear infinite;
 }
 
-@keyframes spin {
-    from { transform: rotate(0deg) scale(1.1); }
-    to { transform: rotate(360deg) scale(1.1); }
+    @keyframes spin {
+        from { transform: rotate(0deg) scale(1.1); }
+        to { transform: rotate(360deg) scale(1.1); }
+    }
+
+
+/* 📱 Планшети */
+@media (max-width: 768px) {
+    .EJF-logo {
+        height: 40px;
+        width: 40px;
+    }
 }
 
-/* === Whyme Page === */
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .EJF-logo {
+        height: 32px;
+        width: 32px;
+        animation: none; /* вимикаємо анімацію для економії */
+    }
+    
+    .EJF-logo:hover {
+        animation: none;
+        transform: scale(1.05); /* легкий hover замість spin */
+    }
+}
+
+/* === PAGE SECTIONS === */
 .Whyme-page {
     background-image: url("./assets/layered-waves-haikei.svg");
-    background-size: cover;
+    background-size: auto 100%;
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: repeat-x;
     min-height: 100vh;
     position: relative;
-    animation: wave-move 14s ease-in-out infinite, section-bob 10s ease-in-out infinite;
+    animation: waveMove 10s linear infinite;
     isolation: isolate;
+    padding-top: 100px; /* компенсація фіксованого хедера */
+}
+
+/* 📱 Планшети */
+@media (max-width: 768px) {
+    .Whyme-page {
+        padding-top: 70px;
+        background-size: auto 120%; /* трохи більший фон */
+    }
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .Whyme-page {
+        padding-top: 60px;
+        background-size: auto 150%;
+        animation: waveMove 15s linear infinite; /* повільніша анімація */
+    }
 }
 
 .Whyme-page::before {
@@ -97,40 +209,49 @@
     position: absolute;
     inset: 0;
     background:
-            radial-gradient(circle at 35% 45%, rgba(255,255,255,0.25), transparent 60%),
-            radial-gradient(circle at 70% 60%, rgba(100,180,255,0.2), transparent 55%);
+        radial-gradient(circle at 35% 45%, rgba(255,255,255,0.25), transparent 60%),
+        radial-gradient(circle at 70% 60%, rgba(100,180,255,0.2), transparent 55%);
     mix-blend-mode: overlay;
     animation: overlay-pulse 10s ease-in-out infinite;
     z-index: -1;
 }
 
-.Whyme-page::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 30%;
-    background: linear-gradient(to top, rgba(13,42,66,0.3), transparent);
-    z-index: 0;
-    pointer-events: none;
-    
+/* 📱 Телефони - вимикаємо для продуктивності */
+@media (max-width: 480px) {
+    .Whyme-page::before {
+        display: none;
+    }
 }
 
-.question-page{
-     
-        background-image: url("./assets/layered-steps-haikei.svg");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        min-height: 100vh;
-        position: relative;
-        animation: wave-move 14s ease-in-out infinite, section-bob 10s ease-in-out infinite;
-        isolation: isolate;
-    
+/* Question Page */
+.question-page {
+    background-image: url("./assets/layered-steps-haikei.svg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    position: relative;
+    animation: wave-move 14s ease-in-out infinite;
+    isolation: isolate;
+    padding-top: 100px;
 }
 
-/* === Second Page === */
+/* 📱 Планшети */
+@media (max-width: 768px) {
+    .question-page {
+        padding-top: 70px;
+    }
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .question-page {
+        padding-top: 60px;
+        animation: none; /* вимикаємо анімацію */
+    }
+}
+
+/* Second Page */
 .second-page {
     background-image: url("./assets/Хвиля.svg");
     background-size: cover;
@@ -138,7 +259,23 @@
     background-repeat: no-repeat;
     min-height: 100vh;
     position: relative;
-    animation: wave-shift 16s linear infinite, fade-in 1.5s ease-in;
+    animation: wave-shift 16s linear infinite;
+    padding-top: 100px;
+}
+
+/* 📱 Планшети */
+@media (max-width: 768px) {
+    .second-page {
+        padding-top: 70px;
+    }
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .second-page {
+        padding-top: 60px;
+        animation: none;
+    }
 }
 
 .second-page::before {
@@ -150,11 +287,17 @@
     z-index: -1;
 }
 
-/* === Keyframe Animations === */
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .second-page::before {
+        display: none;
+    }
+}
 
-@keyframes header-gradient {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+/* === KEYFRAME ANIMATIONS === */
+@keyframes header-pulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(10,78,140,0.3); }
+    50% { box-shadow: 0 0 40px rgba(26,107,181,0.6); }
 }
 
 @keyframes shine-move {
@@ -167,18 +310,22 @@
     50% { transform: scale(1.08); }
 }
 
+@keyframes spin {
+    from { transform: rotate(0deg) scale(1.1); }
+    to { transform: rotate(360deg) scale(1.1); }
+}
+
+@keyframes waveMove {
+    0% { background-position-x: 0; }
+    100% { background-position-x: 200px; }
+}
+
 @keyframes wave-move {
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
-    
-}
-@keyframes qestion-page {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-
 }
 
-/* === Smooth Fade-In for Pages === */
+/* === PAGE FADE-IN === */
 .interactive-page,
 .Whyme-page,
 .second-page,
@@ -188,6 +335,17 @@
     animation: page-fade 1.5s ease-out forwards;
 }
 
+/* 📱 Телефони - швидша анімація */
+@media (max-width: 480px) {
+    .interactive-page,
+    .Whyme-page,
+    .second-page,
+    .question-page {
+        animation-duration: 0.8s;
+        transform: translateY(10px);
+    }
+}
+
 @keyframes page-fade {
     to {
         opacity: 1;
@@ -195,7 +353,7 @@
     }
 }
 
-/* === Buttons Glow + Ripple === */
+/* === INTERACTIVE BUTTON === */
 .interactive-button {
     position: relative;
     overflow: hidden;
@@ -222,7 +380,14 @@
     transition: 0s;
 }
 
-/* === Floating Animation for Logos or Headings === */
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .interactive-button::after {
+        display: none; /* вимикаємо ripple для продуктивності */
+    }
+}
+
+/* === FLOATING ANIMATION === */
 .EJF-logo,
 .interactive-page-title {
     animation: floaty 5s ease-in-out infinite;
@@ -233,27 +398,32 @@
     50% { transform: translateY(-8px); }
 }
 
-/* === Subtle Glow Pulse Around Header === */
-.App-header {
-    box-shadow: 0 0 20px rgba(10,78,140,0.3);
-    animation: header-pulse 6s ease-in-out infinite;
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .EJF-logo,
+    .interactive-page-title {
+        animation: none;
+    }
 }
 
-@keyframes header-pulse {
-    0%, 100% { box-shadow: 0 0 20px rgba(10,78,140,0.3); }
-    50% { box-shadow: 0 0 40px rgba(26,107,181,0.6); }
-}
-
-/* === Floating Light Overlay === */
+/* === FLOATING LIGHT OVERLAY === */
 .App::after {
     content: "";
-    position: sticky;
+    position: fixed;
     inset: 0;
-    background: radial-gradient(circle at 20% 40%, rgba(255,255,255,0.08), transparent 60%),
-    radial-gradient(circle at 80% 60%, rgba(255,255,255,0.05), transparent 60%);
+    background: 
+        radial-gradient(circle at 20% 40%, rgba(255,255,255,0.08), transparent 60%),
+        radial-gradient(circle at 80% 60%, rgba(255,255,255,0.05), transparent 60%);
     animation: light-shift 20s linear infinite;
     pointer-events: none;
     z-index: 0;
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .App::after {
+        display: none;
+    }
 }
 
 @keyframes light-shift {
@@ -262,17 +432,44 @@
     100% { background-position: 0% 50%; }
 }
 
+/* === REVEAL ANIMATIONS === */
+.reveal, .animated-section {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .7s ease, transform .7s ease;
+}
 
-.reveal, .animated-section { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
-.reveal.is-visible, .animated-section.is-visible { opacity: 1; transform: translateY(0); }
+.reveal.is-visible, .animated-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-.reveal-stagger > * { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
-.reveal-stagger.is-visible > * { opacity: 1; transform: none; }
+/* 📱 Телефони - швидші переходи */
+@media (max-width: 480px) {
+    .reveal, .animated-section {
+        transform: translateY(12px);
+        transition-duration: 0.4s;
+    }
+}
+
+/* === REVEAL STAGGER === */
+.reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity .6s ease, transform .6s ease;
+}
+
+.reveal-stagger.is-visible > * {
+    opacity: 1;
+    transform: none;
+}
+
 .reveal-stagger.is-visible > *:nth-child(1) { transition-delay: .05s; }
 .reveal-stagger.is-visible > *:nth-child(2) { transition-delay: .12s; }
 .reveal-stagger.is-visible > *:nth-child(3) { transition-delay: .19s; }
 .reveal-stagger.is-visible > *:nth-child(4) { transition-delay: .26s; }
 
+/* === TEXT SHINE === */
 .text-shine {
     background: linear-gradient(90deg, #fff, #d8e7ff 30%, #9ec2ff 50%, #d8e7ff 70%, #fff);
     -webkit-background-clip: text;
@@ -281,31 +478,182 @@
     animation: shine-sweep 5s ease-in-out infinite;
     text-shadow: 0 2px 18px rgba(120,170,255,.35);
 }
-@keyframes shine-sweep { 0%,100% { background-position: -120% 0; } 50% { background-position: 120% 0; } }
 
-.app-particles { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+@keyframes shine-sweep {
+    0%, 100% { background-position: -120% 0; }
+    50% { background-position: 120% 0; }
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .text-shine {
+        animation: none;
+        background: #fff;
+        color: #fff;
+        -webkit-background-clip: unset;
+        background-clip: unset;
+    }
+}
+
+/* === PARTICLES === */
+.app-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
 .app-particles:before, .app-particles:after {
-    content: ""; position: absolute; inset: -10%;
+    content: "";
+    position: absolute;
+    inset: -10%;
     background:
-            radial-gradient(6px 6px at 10% 20%, rgba(150,200,255,.10), transparent 60%),
-            radial-gradient(5px 5px at 40% 80%, rgba(150,200,255,.08), transparent 60%),
-            radial-gradient(4px 4px at 80% 30%, rgba(150,200,255,.07), transparent 60%),
-            radial-gradient(3px 3px at 60% 60%, rgba(150,200,255,.06), transparent 60%);
+        radial-gradient(6px 6px at 10% 20%, rgba(150,200,255,.10), transparent 60%),
+        radial-gradient(5px 5px at 40% 80%, rgba(150,200,255,.08), transparent 60%),
+        radial-gradient(4px 4px at 80% 30%, rgba(150,200,255,.07), transparent 60%),
+        radial-gradient(3px 3px at 60% 60%, rgba(150,200,255,.06), transparent 60%);
     animation: particles-move 28s linear infinite;
 }
-.app-particles:after { animation-duration: 36s; filter: blur(2px); opacity: .6; }
-@keyframes particles-move { from { transform: translate3d(-2%, -1%, 0); } to { transform: translate3d(2%, 1%, 0); } }
 
-.h1-fade, .h2-fade, .p-fade { opacity: 0; transform: translateY(12px); animation: ty-fade .8s ease forwards; }
+.app-particles:after {
+    animation-duration: 36s;
+    filter: blur(2px);
+    opacity: .6;
+}
+
+@keyframes particles-move {
+    from { transform: translate3d(-2%, -1%, 0); }
+    to { transform: translate3d(2%, 1%, 0); }
+}
+
+/* 📱 Телефони - вимикаємо частинки */
+@media (max-width: 480px) {
+    .app-particles:before,
+    .app-particles:after {
+        display: none;
+    }
+}
+
+/* === TEXT FADE === */
+.h1-fade, .h2-fade, .p-fade {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: ty-fade .8s ease forwards;
+}
+
 .h1-fade { animation-delay: .1s; }
 .h2-fade { animation-delay: .18s; }
-.p-fade  { animation-delay: .26s; }
-@keyframes ty-fade { to { opacity: 1; transform: none; } }
+.p-fade { animation-delay: .26s; }
 
+@keyframes ty-fade {
+    to { opacity: 1; transform: none; }
+}
 
+/* 📱 Телефони - швидші анімації */
+@media (max-width: 480px) {
+    .h1-fade, .h2-fade, .p-fade {
+        animation-duration: 0.5s;
+    }
+}
 
-.category-switch { display:flex; gap:1.2rem; justify-content:center; }
-.category-switch button { all:unset; cursor:pointer; min-width:5.5rem; padding:.85rem 1.4rem; text-align:center; font-size:1rem; font-weight:600; color:var(--text); background:linear-gradient(#202833,#1a1f26); border:1px solid rgba(255,255,255,.12); border-radius:.95rem; position:relative; transition:.35s; }
-.category-switch button:before { content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; background:linear-gradient(140deg,rgba(255,255,255,.25),transparent 55%); opacity:.35; mix-blend-mode:overlay; }
-.category-switch button:hover { background:var(--accent-grad); color:#fff; transform:translateY(-4px); box-shadow:0 6px 24px -8px #4f9cff,0 0 0 1px rgba(255,255,255,.18); }
-.category-switch button.active { background:var(--accent-grad); box-shadow:0 0 0 1px rgba(255,255,255,.25),0 8px 28px -6px rgba(79,156,255,.55); color:#fff; }
+/* === CATEGORY SWITCH === */
+.category-switch {
+    display: flex;
+    gap: 1.2rem;
+    justify-content: center;
+    flex-wrap: wrap; /* дозволяємо перенесення на новий рядок */
+}
+
+.category-switch button {
+    all: unset;
+    cursor: pointer;
+    min-width: 5.5rem;
+    padding: .85rem 1.4rem;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    background: linear-gradient(#202833, #1a1f26);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: .95rem;
+    position: relative;
+    transition: .35s;
+}
+
+/* 📱 Планшети */
+@media (max-width: 768px) {
+    .category-switch {
+        gap: 0.8rem;
+    }
+    
+    .category-switch button {
+        min-width: 4.5rem;
+        padding: .7rem 1.1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .category-switch {
+        gap: 0.5rem;
+    }
+    
+    .category-switch button {
+        min-width: auto;
+        padding: .6rem .9rem;
+        font-size: 0.85rem;
+        border-radius: .7rem;
+    }
+}
+
+.category-switch button:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(140deg, rgba(255,255,255,.25), transparent 55%);
+    opacity: .35;
+    mix-blend-mode: overlay;
+}
+
+.category-switch button:hover {
+    background: var(--accent-grad);
+    color: #fff;
+    transform: translateY(-4px);
+    box-shadow: 0 6px 24px -8px #4f9cff, 0 0 0 1px rgba(255,255,255,.18);
+}
+
+/* 📱 Телефони - легший hover */
+@media (max-width: 480px) {
+    .category-switch button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px -6px #4f9cff;
+    }
+}
+
+.category-switch button.active {
+    background: var(--accent-grad);
+    box-shadow: 0 0 0 1px rgba(255,255,255,.25), 0 8px 28px -6px rgba(79,156,255,.55);
+    color: #fff;
+}
+
+/* 📱 Телефони */
+@media (max-width: 480px) {
+    .category-switch button.active {
+        box-shadow: 0 0 0 1px rgba(255,255,255,.2), 0 6px 20px -4px rgba(79,156,255,.4);
+    }
+}
+
+/* === PERFORMANCE OPTIMIZATION === */
+/* Вимикаємо всі анімації на слабких пристроях */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
