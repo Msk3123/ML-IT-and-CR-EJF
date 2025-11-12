@@ -3,7 +3,7 @@ import '../style/ProfileSection.css';
 import profilePhoto from '../assets/Моє фото.jpg';
 import profilePhotoCR from '../assets/МоєФотоCR.jpg';
 
-function ProfileSection({selectedCategory}) {
+function ProfileSection({selectedCategory, profileMotivation}) {
     const myPhoto = selectedCategory === 'CR' ? profilePhotoCR : profilePhoto;
     
     
@@ -20,7 +20,7 @@ function ProfileSection({selectedCategory}) {
                         <p>
                             Моя мотивація йти в ІЯК: Тому що в ньому я розвону скіли які уже маю, получу нові, познайомлюсь з новими людьми, Маю неймовірне бажання зловити вайб саме ІЯКу, в моїх планах бути активним і надалі в бесті
                         </p>
-                        <p>{myPhoto}</p>
+                        <p>{profileMotivation}</p>
                          </div>
                 </div>
             </section>
