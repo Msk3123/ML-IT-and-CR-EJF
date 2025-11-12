@@ -29,8 +29,12 @@
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     }
 }
-
-.interactive-page h1 {
+.interactive-page h1{
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 32px;
+}
+.interactive-page h2 {
     text-align: center;
     margin-bottom: 20px;
     font-size: 24px;
@@ -43,11 +47,24 @@
         margin-bottom: 16px;
     }
 }
+@media (max-width: 768px) {
+    .interactive-page h2 {
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+}
 
 /* 📱 Телефони */
 @media (max-width: 480px) {
     .interactive-page h1 {
         font-size: 18px;
+        margin-bottom: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .interactive-page h2 {
+        font-size: 14px;
         margin-bottom: 12px;
     }
 }

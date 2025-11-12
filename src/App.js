@@ -5,6 +5,8 @@ import appLogo from './assets/Лого-ІЯК.png';
 import WhyEJF from "./page/WhyEJF";
 import SkillPage from "./page/SkillPage";
 import InteractivePage from "./page/interactivePage";
+import LastPage from "./page/lastPage";
+import PossibleQA from "./page/PossibleQuestions";
 import { initRevealOnScroll } from './utils/revealOnScroll';
 
 import {
@@ -12,6 +14,7 @@ import {
     SKILL_DATA,
     experienceContent,
     experienceGoals,
+    profileMotivation,
 } from "./data/dataWebSite";
 
 function App() {
@@ -24,7 +27,7 @@ function App() {
     const skills = SKILL_DATA[selectedCategory];
     const experience = experienceContent[selectedCategory];
     const goals = experienceGoals[selectedCategory];
-
+    const profileMotivationData = profileMotivation[selectedCategory];
     return (
         <div className="App">
             <header className="App-header">
@@ -60,6 +63,7 @@ function App() {
                     experience={experience}
                     goals={goals}
                     selectedCategory={selectedCategory}
+                    profileMotivation={profileMotivationData}
                 />
                 <WhyEJF selectedCategory={selectedCategory} />
             </div>
@@ -79,6 +83,20 @@ function App() {
                     setSelectedTemplate={setSelectedTemplate}
                 />
             </div>
+
+            <div className="maybeqwestion-page">
+                <PossibleQA selectedCategory={selectedCategory}
+                />
+            </div>
+            
+            <div className="last-page">
+                <LastPage 
+                    selectedCategory={selectedCategory}
+                />
+            </div>
+
+            
+
         </div>
     );
 }

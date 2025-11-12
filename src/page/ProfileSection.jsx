@@ -3,12 +3,13 @@ import '../style/ProfileSection.css';
 import profilePhoto from '../assets/Моє фото.jpg';
 import profilePhotoCR from '../assets/МоєФотоCR.jpg';
 
-function ProfileSection({selectedCategory}) {
+function ProfileSection({selectedCategory, profileMotivation}) {
     const myPhoto = selectedCategory === 'CR' ? profilePhotoCR : profilePhoto;
+    
     
     return (
         <div className="page-container">
-            <section className="profile-section">
+            <section className="interactive-page">
                 <div className="profile-layout">
                     <img src={myPhoto} alt="Палій Максим" className="profile-photo" />
                     <div className="profile-text">
@@ -19,12 +20,8 @@ function ProfileSection({selectedCategory}) {
                         <p>
                             Моя мотивація йти в ІЯК: Тому що в ньому я розвону скіли які уже маю, получу нові, познайомлюсь з новими людьми, Маю неймовірне бажання зловити вайб саме ІЯКу, в моїх планах бути активним і надалі в бесті
                         </p>
-                        <p> Позиція <b>IT Responsible для мене</b> - це можливість не просто писати код, а бути тією людиною, яка відповідає за технічну частину команди, створює стабільні рішення й допомагає іншим реалізовувати свої ідеї. Я готовий брати на себе відповідальність, бо знаю, що технічна сторона це основа будь-якого проєкту. 
-                               Це допоможе мені в розвитку в IT-сфері. Після цієї посади я стану впевненим IT-розробником, який зможе влаштуватися на роботу, заробляти гроші та купувати пиво для BEST.</p>
-                            
-                        <p>Щодо <b>Corporate Relationships</b> - для мене це чудова можливість побачити світ CR на глибшому рівні та бути тим, хто приносить кошти в BEST через ІЯК, що забезпечить фінансову стабільність організації. Я готовий брати на себе всю відповідальність, пов'язану з CR, і навіть більше. Мені близьке спілкування з людьми та налагодження контактів. 
-                                Я бачу в цій позиції шанс розвинути комунікаційні навички, навчитися вести переговори та представляти наш ІЯК на високому рівні серед компаній.</p>
-                    </div>
+                        <p>{profileMotivation}</p>
+                         </div>
                 </div>
             </section>
         </div>

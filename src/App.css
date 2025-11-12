@@ -182,7 +182,7 @@ body {
     background-repeat: repeat-x;
     min-height: 100vh;
     position: relative;
-    animation: waveMove 10s linear infinite;
+    animation: wave-move 10s linear infinite;
     isolation: isolate;
     padding-top: 100px; /* компенсація фіксованого хедера */
 }
@@ -212,7 +212,6 @@ body {
         radial-gradient(circle at 35% 45%, rgba(255,255,255,0.25), transparent 60%),
         radial-gradient(circle at 70% 60%, rgba(100,180,255,0.2), transparent 55%);
     mix-blend-mode: overlay;
-    animation: overlay-pulse 10s ease-in-out infinite;
     z-index: -1;
 }
 
@@ -222,6 +221,7 @@ body {
         display: none;
     }
 }
+
 
 /* Question Page */
 .question-page {
@@ -329,7 +329,8 @@ body {
 .interactive-page,
 .Whyme-page,
 .second-page,
-.question-page {
+.question-page 
+.last-page{
     opacity: 0;
     transform: translateY(20px);
     animation: page-fade 1.5s ease-out forwards;
@@ -340,7 +341,9 @@ body {
     .interactive-page,
     .Whyme-page,
     .second-page,
-    .question-page {
+    .question-page 
+    .last-page
+    {
         animation-duration: 0.8s;
         transform: translateY(10px);
     }
@@ -657,4 +660,110 @@ body {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
+}
+
+
+.last-page{
+    
+    background-image: url("./assets/blob-haikei.svg");
+    background-size: auto 100%;
+    background-position: center;
+    background-repeat: repeat-x;
+    min-height: 100vh;
+    position: relative;
+    animation: wave-move 10s linear infinite;
+    isolation: isolate;
+    padding-top: 100px;
+}
+
+/* 🎯 Контейнер для відео */
+.video-wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto; /* центруємо */
+    padding: 0 20px;
+}
+
+/* 🎬 Основний стиль відео */
+.video-container {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* 🔥 Фіксоване співвідношення! */
+    max-height: 506px; /* 900px * 9/16 */
+    border-radius: 20px;
+    box-shadow:
+            0 20px 60px rgba(0, 0, 0, 0.4),
+            0 0 0 1px rgba(255, 255, 255, 0.1);
+    object-fit: cover; /* відео заповнює контейнер */
+
+    /* Плавна поява */
+    animation: scaleIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* Ховер-ефект */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-container:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow:
+            0 30px 80px rgba(0, 0, 0, 0.5),
+            0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+/* 🎬 Кастомні контроли (ВИПРАВЛЕНО!) */
+.video-container::-webkit-media-controls-panel {
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+}
+
+/* 📱 Адаптивність для планшетів */
+@media (max-width: 768px) {
+    .video-wrapper {
+        max-width: 100%;
+        padding: 0 15px;
+    }
+
+    .video-container {
+        border-radius: 15px;
+        max-height: 400px;
+    }
+}
+
+/* 📱 Адаптивність для телефонів */
+@media (max-width: 480px) {
+    .video-wrapper {
+        padding: 0 10px;
+    }
+
+    .video-container {
+        border-radius: 12px;
+        max-height: 250px;
+    }
+
+    .video-container:hover {
+        transform: translateY(-4px) scale(1.01); /* легший hover */
+    }
+}
+
+/* 🎭 Анімації */
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+.maybeqwestion-page {
+    background-image: url("./assets/blob-scene-haikei.svg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    position: relative;
+    animation: wave-move 14s ease-in-out infinite;
+    isolation: isolate;
+    padding-top: 100px;
 }
